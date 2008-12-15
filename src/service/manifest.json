@@ -1,0 +1,16 @@
+{
+	"type": "dependent",
+	"uses": {
+		"corelet": "RubyInterpreter",
+		"version": "4"
+	},
+	"arguments": {
+	  "ScriptFile": "PhotoBooth.rb"
+	},
+    "strings": {
+        "en": {
+            "title": "Photo Booth",
+            "summary": "A service that monitors the Photo Booth directory for the latest photo."
+        }
+    }
+}

@@ -1,0 +1,66 @@
+<html>  
+<head>
+    <title>BrowserPlus Photo Booth</title>
+    <style type="text/css" media="screen">
+        h1 { font-size:16pt;letter-spacing:1px;}
+    </style>
+</head>  
+<body>  
+
+    <p>
+        The PhotoBooth service runs on Mac OS X only and requires <a href="http://browserplus.yahoo.com/">BrowserPlus</a>.
+        This service monitors the Photo Booth directory for new photos and displays the latest photo below
+        (service polls every 5 seconds). The idea is that this makes taking a user profile photo much more user friendly.  
+        As noted in the README, this is just a very hacky hack, proof of concept that was written in an hour for fun.
+    </p>
+    <h1>Your Latest Photo Booth Picture:</h1>
+    <div id="result"></div>
+
+    <script type="text/javascript" src="http://bp.yahooapis.com/2.1.11/browserplus-min.js"></script>  
+    <script type="text/javascript">  
+
+    var err = function(f, result) {
+        console.log(f + " Error: " + result.error + (result.verboseError ? (": " + result.verboseError) : ""));
+    };
+
+    var mycb = function(path) {
+        console.log("mycb:"+path);
+        BrowserPlus.FileAccess.GetURL( {file: path}, function(r) {
+            if (r.success) {  
+                console.log("display: " + r.value);
+                document.getElementById("result").innerHTML = '<img src=\"' + r.value + '\">';
+            } else {
+                err("DISPLAY", r);
+            }
+        });
+    };
+
+    BrowserPlus.init(function(res) {  
+        var photoService = {service: "PhotoBooth", version: "0", minversion: "0.0.1"},
+            fileService = {service: 'FileAccess', version: "1"};
+            
+        if (res.success) {  
+            console.log("init test");
+            BrowserPlus.require({ services: [ photoService, fileService ]}, function(r) {
+                if (r.success) {
+                    console.log("watch");
+                    BrowserPlus.PhotoBooth.watch({ callback: mycb}, function(x){
+                        if (!x.success) {
+                            err("WATCH", x);
+                        } else {
+                            console.log("WTF??");
+                        }
+                    });
+                    console.log("WTF2222");
+                } else {
+                    err("REQUIRE", r);
+                }
+            });
+        } else {
+            err("INIT", res);
+        }
+    });
+
+    </script>  
+</body>  
+</html>
