@@ -81,7 +81,7 @@ rubyCoreletDefinition = {
          {
             'name' => 'delay',
             'type' => 'integer',
-            'required' => true,
+            'required' => false,
             'documentation' => 'The time to delay between polling photo booth directory (default 5 seconds).'
           },
           {
