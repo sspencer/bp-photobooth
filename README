@@ -1,0 +1,14 @@
+h1. PhotoBooth Service
+
+Proof of Concept service that watches the <code>~/Pictures/Photo Booth/</code> 
+directory on Mac OS X for new <code>*.jpg</code> images.  Your JavaScript code 
+is called immediately if there is an image in that directory and then called 
+whenever a newer image is detected.  BrowserPlus is required.
+
+This service is not production quality.  It is meant as a proof-of-concept/hack to 
+explore web user interfaces and see how much easier it would be for users if they 
+did not have to explicitly Browser/Upload a file (or even Drag+Drop with BrowserPlus).
+Code like this could be used to offer an easy way for users to take a profile
+photo, crop it, add effects and upload it in a much simplified work flow.  
+
+TBD ... Have cropping and special effects in the demo.
